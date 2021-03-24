@@ -1,0 +1,6 @@
+com/plugin_framework/ProxyActivityInterface.java
+ com.plugin_framework.ProxyActivityInterface
+com/plugin_framework/BuildConfig.java
+ com.plugin_framework.BuildConfig
+com/plugin_framework/ProxyBroadCastInterface.java
+ com.plugin_framework.ProxyBroadCastInterface

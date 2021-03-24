@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"
+    android:useLevel="false">
+    <corners android:radius="3dp" />
+    <solid android:color="@color/N_solidCircleColor" />
+    <stroke
+        android:width="@dimen/N_checkedHollowCircleStroke"
+        android:color="@color/N_hollowCircleColor" />
+    <size
+        android:width="@dimen/N_checkedCircleRadius"
+        android:height="@dimen/N_checkedCircleRadius" />
+</shape>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="N_todaySolarUnCheckedTextColor">#39AF81</color>
+    <color name="N_defaultLunarTextColor">#AEAEAE</color>
+    <color name="N_pointColor">#B2B2B2</color>
+    <color name="N_holidayTextColor">#39AF81</color>
+    <color name="N_workdayTextColor">#EC7230</color>
+    <color name="N_todayCheckedColor">#39AF81</color>
+    <color name="N_white">#ffffff</color>
+    <color name="N_defaultSolarTextColor">#ffffff</color>
+    <color name="N_defaultUnCheckedSolarTextColor">#252C58</color>
+    <color name="N_solidCircleColor">#3D56FF</color>
+    <color name="N_stretchTextColor">#666666</color>
+    <color name="N_hollowCircleColor">#3D56FF</color>
+    <color name="color_123456">#C2DDF7</color>
+
+    <color name="N_WeekBarTextColor">#9096BB</color>
+
+
+</resources>

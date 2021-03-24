@@ -1,2 +1,7 @@
+include ':samplecalendar'
+include ':EasyCalendar'
+include ':pluginframework'
+include ':PlugInApp'
+include ':MainApp'
 include ':app'
 rootProject.name = "AppFrame4"

@@ -1,0 +1,2 @@
+com.plugin_framework
+string app_name
