@@ -1,3 +1,4 @@
+include ':SampleNestedScrolling'
 include ':samplecalendar'
 include ':EasyCalendar'
 include ':pluginframework'
