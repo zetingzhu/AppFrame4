@@ -1,3 +1,7 @@
+include ':TestJava'
+include ':StaggeredGridSample'
+include ':systemcalendatsample'
+include ':coroutinessample'
 include ':SampleNestedScrolling'
 include ':samplecalendar'
 include ':EasyCalendar'
@@ -6,3 +10,4 @@ include ':PlugInApp'
 include ':MainApp'
 include ':app'
 rootProject.name = "AppFrame4"
+include ':zztpopupwindows'

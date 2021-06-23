@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="AppFrame4.app" target="1.8" />
+      <module name="AppFrame4.coroutinessample" target="1.8" />
+      <module name="AppFrame4.EasyCalendar" target="1.8" />
+      <module name="AppFrame4.MainApp" target="1.8" />
+      <module name="AppFrame4.PlugInApp" target="1.8" />
+      <module name="AppFrame4.pluginframework" target="1.8" />
+      <module name="AppFrame4.samplecalendar" target="1.8" />
+      <module name="AppFrame4.SampleNestedScrolling" target="1.8" />
+      <module name="AppFrame4.StaggeredGridSample" target="1.8" />
+      <module name="AppFrame4.systemcalendatsample" target="1.8" />
+      <module name="AppFrame4.zztpopupwindows" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

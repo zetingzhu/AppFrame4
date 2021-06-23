@@ -4,6 +4,7 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,6 +42,22 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.btn_sss).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, ActivityV3.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("abc", "qqqqqqq");
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+
+
+                Intent intent1 = new Intent(MainActivity.this, ActivityV3.class);
+                intent1.putExtra("abc", "qqqqqqq");
+                startActivity(intent1);
+            }
+        });
 
         imageViewRes = (ImageView) findViewById(R.id.svg_image_view1);
         imageViewNet = (ImageView) findViewById(R.id.svg_image_view2);
