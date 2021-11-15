@@ -4,7 +4,7 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="testRunner" value="PLATFORM" />
+        <option name="testRunner" value="GRADLE" />
         <option name="disableWrapperSourceDistributionNotification" value="true" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -22,6 +22,7 @@
             <option value="$PROJECT_DIR$/coroutinessample" />
             <option value="$PROJECT_DIR$/pluginframework" />
             <option value="$PROJECT_DIR$/samplecalendar" />
+            <option value="$PROJECT_DIR$/samplelivedatamut" />
             <option value="$PROJECT_DIR$/systemcalendatsample" />
             <option value="$PROJECT_DIR$/zztpopupwindows" />
           </set>

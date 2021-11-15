@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zzt.coroutinessample">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppFrame4">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".activity.EmptyActivityJava"
+            android:exported="true" />
+        <activity
+            android:name=".activity.EmptyActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.downloas.FlowDownloadActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.FlowUseActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.FlowActivity"
+            android:exported="true" />
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -24,3 +24,6 @@ RecycleView瀑布流布局使用
 
 zztpopupwindows
 PopupWindows 使用
+
+samplelivedatamut
+livedata 粘连性，导致数据多次接收

@@ -10,6 +10,14 @@ import kotlinx.coroutines.launch
  *
  */
 class MyViewModel : ViewModel() {
+
+
+    fun testVm2(){
+
+    }
+
+
+
     fun abc() {
         // 在 ViewModel 中启动新的协程
         viewModelScope.launch {
