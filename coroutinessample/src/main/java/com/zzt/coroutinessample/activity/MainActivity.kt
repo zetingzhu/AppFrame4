@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         listData.add(StartActivityDao("跳转到Flow", "", "9"))
         listData.add(StartActivityDao("Flow 使用", "", FlowUseActivity::class.java))
         listData.add(StartActivityDao("验证 kotlin coroutine 循环器", "", EmptyActivity::class.java))
+        listData.add(StartActivityDao("验证 Java coroutine 循环器", "", EmptyActivityJava::class.java))
         listData.add(StartActivityDao("阻塞线程", "", "0"))
         listData.add(StartActivityDao("协程统计 measureTimeMillis", "", "1"))
         listData.add(StartActivityDao("协程的线程调度", "", "2"))

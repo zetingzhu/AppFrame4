@@ -80,12 +80,26 @@ public abstract class ZBasePopup<T extends ZBasePopup> {
         dismissIfOutsideTouch(mDismissIfOutsideTouch);
     }
 
-
+    /**
+     * 设置popupWindows 昏暗背景， 0.0F - 1.0F   0.0F 透明 1.0F不透明
+     *
+     * @param dimAmount
+     * @return
+     */
     public T dimAmount(float dimAmount) {
         mDimAmount = dimAmount;
         return (T) this;
     }
 
+    /**
+     * this.setFocusable(true);  设置为false ,点击都直接透传到下面view上 ，点击外部区域 popupWindows 消失，内部区域 popupWindows 不消失
+     * dismissIfOutsideTouch(true);
+     * this.setTouchable(true); 设置为 popupWindows 不消失，点击透传
+     */
+
+    /**
+     * 设置外部可以触摸，并且消失窗口
+     */
     public T dismissIfOutsideTouch(boolean dismissIfOutsideTouch) {
         mDismissIfOutsideTouch = dismissIfOutsideTouch;
         mWindow.setOutsideTouchable(dismissIfOutsideTouch);
@@ -96,6 +110,15 @@ public abstract class ZBasePopup<T extends ZBasePopup> {
         }
         return (T) this;
     }
+
+    /**
+     * 是否可以拦截点击事件
+     */
+    public T setTouchable(boolean touchable) {
+        mWindow.setTouchable(touchable);
+        return (T) this;
+    }
+
 
     public T onDismiss(PopupWindow.OnDismissListener listener) {
         mDismissListener = listener;
@@ -166,15 +189,29 @@ public abstract class ZBasePopup<T extends ZBasePopup> {
 
     }
 
+    /**
+     * 关闭对话框
+     */
     public final void dismiss() {
         removeOldAttachStateChangeListener();
         mAttachedViewRf = null;
         mWindow.dismiss();
     }
 
-    public abstract void show(@NonNull View anchor);
-
-    public int dp2px(Context context, float dpValue) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.getResources().getDisplayMetrics());
+    /**
+     * 关闭对话框
+     *
+     * @param delayMillis
+     */
+    public final void dismissDelayed(long delayMillis) {
+        if (mAttachedViewRf != null && mAttachedViewRf.get() != null) {
+            mAttachedViewRf.get().postDelayed(() -> {
+                removeOldAttachStateChangeListener();
+                mAttachedViewRf = null;
+                mWindow.dismiss();
+            }, delayMillis);
+        }
     }
+
+    public abstract void show(@NonNull View anchor);
 }

@@ -51,7 +51,8 @@ class FlowActivity : AppCompatActivity() {
         daoList.add(StartActivityDao("Flow 背压 conflate", "如果缓存池满了，会丢掉将要放入缓存池中的数据", "8"))
         daoList.add(StartActivityDao("Flow retry 操作符", "重试操作符", "9"))
         daoList.add(StartActivityDao("Flow retryWhen 操作符", "重试", "10"))
-        daoList.add(StartActivityDao("Flow retryWhen 操作符", "重试", "10"))
+        daoList.add(StartActivityDao("Flow retryWhen 操作符", "重试", "11"))
+        daoList.add(StartActivityDao("Flow map 操作符", "变换操作符", "12"))
 
         StartActivityRecyclerAdapter.setAdapterData(
             binding.rvList,
@@ -70,9 +71,30 @@ class FlowActivity : AppCompatActivity() {
                     "8" -> flowTest8()
                     "9" -> flowTest9()
                     "10" -> flowTest10()
+                    "12" -> flowTest12()
                 }
             }
         }
+    }
+
+    private fun flowTest12() {
+        flow {
+            List(5) {
+                emit(it)
+
+            }
+        }.map {
+            it * 2
+        }.onStart {
+
+        }
+            .onEach {
+
+            }
+            .onCompletion {
+
+            }
+
     }
 
     private fun flowTest10() {

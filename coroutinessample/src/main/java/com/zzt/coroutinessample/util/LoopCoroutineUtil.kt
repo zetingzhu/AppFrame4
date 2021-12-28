@@ -1,6 +1,9 @@
 package com.zzt.coroutinessample.util
 
 import android.util.Log
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.coroutineScope
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
@@ -13,7 +16,29 @@ class LoopCoroutineUtil {
     val TAG = LoopCoroutineUtil::class.java.simpleName
     private var mCountdownJob: Job? = null
 
-    // 开始轮询
+    /**
+     * java 轮询开始
+     */
+    fun startLoopJava(
+        timeMillis: Long,
+        doInBackground: () -> Any?,
+        onPostExecute: (Any?) -> Unit,
+        lifecycle: Lifecycle
+    ) {
+        val coroutineScope = lifecycle.coroutineScope
+        mCountdownJob = coroutinesCyclic(timeMillis, coroutineScope, doInBackground, onPostExecute)
+    }
+
+    /**
+     * java 取消轮询
+     */
+    fun cancelLoopJava() {
+        mCountdownJob?.cancel()
+    }
+
+    /**
+     * kotlin 开始轮询
+     */
     fun startLoop(
         timeMillis: Long,
         doInBackground: () -> Any?,
@@ -24,7 +49,7 @@ class LoopCoroutineUtil {
     }
 
     /**
-     * 取消轮询
+     * kotlin 取消轮询
      */
     fun cancelLoop() {
         mCountdownJob?.cancel()
@@ -68,7 +93,7 @@ class LoopCoroutineUtil {
 //                Log.i(TAG, ">>>>>定时内部异常 ${Thread.currentThread().name}   ")
                 ex.printStackTrace()
             }.onCompletion {
-//                Log.i(TAG, ">>>>> 定时结束了 ${Thread.currentThread().name}   ")
+                Log.i(TAG, ">>>>> 定时结束了 ${Thread.currentThread().name}   ")
             }
             .launchIn(scope)
     }

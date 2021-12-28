@@ -12,3 +12,5 @@ include ':app'
 rootProject.name = "AppFrame4"
 include ':zztpopupwindows'
 include ':samplelivedatamut'
+include ':samplewebview'
+include ':CacheWebView'

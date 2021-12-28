@@ -66,8 +66,7 @@ public class ZPopFrameLayout extends FrameLayout {
         mClipPaint.setAntiAlias(true);
         mBorderRect = new RectF();
 
-        int radius = 0;
-        setRadiusAndShadow(radius);
+        setRadiusAndShadow(0);
     }
 
     public void setRadius(int radius) {

@@ -28,38 +28,29 @@ import java.lang.annotation.RetentionPolicy;
  * @date: 2021/6/21
  * PopupWindow 弹框普通布局
  */
-public class ZNormalPopup extends ZBasePopup {
+public class ZNormalPopup extends ZBasePopup<ZBasePopup> {
     private static final String TAG = ZNormalPopup.class.getSimpleName();
-    public static final int DIRECTION_TOP = 0;
-    public static final int DIRECTION_BOTTOM = 1;
-    public static final int DIRECTION_CENTER_IN_SCREEN = 2;
 
-    @IntDef({DIRECTION_CENTER_IN_SCREEN, DIRECTION_TOP, DIRECTION_BOTTOM})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Direction {
-    }
-
-    private int mEdgeProtectionTop;
-    private int mEdgeProtectionLeft;
-    private int mEdgeProtectionRight;
-    private int mEdgeProtectionBottom;
-    private boolean mShowArrow = true;
-    private int mRadius = 0;
-    private int mBorderUsedColor = Color.TRANSPARENT;
-    private int mBorderWidth = 0;
-    private int mBgUsedColor = Color.TRANSPARENT;
-    private int mOffsetX = 0;
-    private int mOffsetYIfTop = 0;
-    private int mOffsetYIfBottom = 0;
-    private @Direction
-    int mPreferredDirection = DIRECTION_BOTTOM;
-    protected final int mInitWidth;
-    protected final int mInitHeight;
-    private int mArrowWidth = NOT_SET;
-    private int mArrowHeight = NOT_SET;
-    private View mContentView;
-    // 背景渐变背景
-    private GradientDrawable mBgUsedColorGradient;
+    private @ZDirection
+    int mPreferredDirection = ZDirection.DIRECTION_BOTTOM;// 气泡方向
+    protected final int mInitWidth;// 初始化气泡宽度
+    protected final int mInitHeight;// 初始化气泡高度
+    private int mEdgeProtectionTop;// 屏幕上方保护距离
+    private int mEdgeProtectionLeft;// 屏幕左边保护距离
+    private int mEdgeProtectionRight;// 屏幕右边保护距离
+    private int mEdgeProtectionBottom;// 屏幕下面保护距离
+    private int mRadius = 0; // 背景半径
+    private int mBorderUsedColor = Color.TRANSPARENT;// 边框颜色
+    private int mBorderWidth = 0;// 边框宽度
+    private int mBgUsedColor = Color.TRANSPARENT;// 背景颜色 ,箭头颜色
+    private GradientDrawable mBgUsedColorGradient;    // 背景渐变背景
+    private int mOffsetX = 0; // x轴偏移距离
+    private int mOffsetYIfTop = 0;// 在下方，距离顶部距离
+    private int mOffsetYIfBottom = 0;// 在上方距离底部距离
+    private boolean mShowArrow = true; // 是否显示箭头
+    private int mArrowWidth = NOT_SET;// 箭头宽度
+    private int mArrowHeight = NOT_SET;// 箭头高度
+    private View mContentView;// 锚点view
 
     public ZNormalPopup(Context context, int width, int height) {
         super(context);
@@ -114,7 +105,7 @@ public class ZNormalPopup extends ZBasePopup {
         return this;
     }
 
-    public ZNormalPopup preferredDirection(@Direction int preferredDirection) {
+    public ZNormalPopup preferredDirection(@ZDirection int preferredDirection) {
         mPreferredDirection = preferredDirection;
         return this;
     }
@@ -162,17 +153,17 @@ public class ZNormalPopup extends ZBasePopup {
         Rect visibleWindowFrame = new Rect();
         int width;
         int height;
-        int x;
-        int y;
+        int x;  // 气泡左上角在屏幕中X轴
+        int y;// 气泡左上角在屏幕中Y轴
         View anchor;
-        int anchorCenter;
+        int anchorCenter; // 锚点视图的X轴中心点，
         int direction = mPreferredDirection;
         int contentWidthMeasureSpec;
         int contentHeightMeasureSpec;
-        int decorationLeft = 0;
-        int decorationRight = 0;
-        int decorationTop = 0;
-        int decorationBottom = 0;
+        int decorationLeft = 0;//  气泡左边
+        int decorationRight = 0;//  气泡右边
+        int decorationTop = 0; //  气泡顶部
+        int decorationBottom = 0;//  气泡下面
 
         ShowInfo(View anchor) {
             this.anchor = anchor;
@@ -184,6 +175,9 @@ public class ZNormalPopup extends ZBasePopup {
         }
 
 
+        /**
+         * 锚点比例
+         */
         float anchorProportion() {
             return (anchorCenter - x) / (float) width;
         }
@@ -231,6 +225,7 @@ public class ZNormalPopup extends ZBasePopup {
 
     private void decorateContentView(ShowInfo showInfo) {
         ContentView contentView = ContentView.wrap(mContentView, mInitWidth, mInitHeight);
+
         if (mBgUsedColorGradient != null) {
             contentView.setBackground(mBgUsedColorGradient);
         } else {
@@ -244,22 +239,22 @@ public class ZNormalPopup extends ZBasePopup {
         Log.d(TAG, "contentView:" + contentView.getWidth() + " - " + contentView.getHeight());
 
         DecorRootView decorRootView = new DecorRootView(mContext, showInfo);
-//        decorRootView.setBackgroundColor(Color.parseColor("#111111"));
         decorRootView.setContentView(contentView);
         mWindow.setContentView(decorRootView);
     }
 
     private void adjustShowInfo(ShowInfo showInfo) {
-        if (mShowArrow && showInfo.direction != DIRECTION_CENTER_IN_SCREEN) {
+
+        if (mShowArrow && showInfo.direction != ZDirection.DIRECTION_CENTER_IN_SCREEN) {
             if (mArrowWidth == NOT_SET) {
                 mArrowWidth = dp2px(mContext, 10);
             }
             if (mArrowHeight == NOT_SET) {
                 mArrowHeight = dp2px(mContext, 8);
             }
-            if (showInfo.direction == DIRECTION_BOTTOM) {
+            if (showInfo.direction == ZDirection.DIRECTION_BOTTOM) {
                 showInfo.decorationTop = Math.max(showInfo.decorationTop, mArrowHeight);
-            } else if (showInfo.direction == DIRECTION_TOP) {
+            } else if (showInfo.direction == ZDirection.DIRECTION_TOP) {
                 showInfo.decorationBottom = Math.max(showInfo.decorationBottom, mArrowHeight);
                 showInfo.y -= mArrowHeight;
             }
@@ -274,33 +269,33 @@ public class ZNormalPopup extends ZBasePopup {
                     showInfo.visibleWindowFrame.right - mEdgeProtectionRight - showInfo.width,
                     showInfo.anchorCenter - showInfo.width / 2 + mOffsetX);
         }
-        int nextDirection = DIRECTION_CENTER_IN_SCREEN;
-        if (mPreferredDirection == DIRECTION_BOTTOM) {
-            nextDirection = DIRECTION_TOP;
-        } else if (mPreferredDirection == DIRECTION_TOP) {
-            nextDirection = DIRECTION_BOTTOM;
+        int nextDirection = ZDirection.DIRECTION_CENTER_IN_SCREEN;
+        if (mPreferredDirection == ZDirection.DIRECTION_BOTTOM) {
+            nextDirection = ZDirection.DIRECTION_TOP;
+        } else if (mPreferredDirection == ZDirection.DIRECTION_TOP) {
+            nextDirection = ZDirection.DIRECTION_BOTTOM;
         }
         handleDirection(showInfo, mPreferredDirection, nextDirection);
     }
 
     private void handleDirection(ShowInfo showInfo, int currentDirection, int nextDirection) {
-        if (currentDirection == DIRECTION_CENTER_IN_SCREEN) {
+        if (currentDirection == ZDirection.DIRECTION_CENTER_IN_SCREEN) {
             showInfo.x = showInfo.visibleWindowFrame.left + (showInfo.getVisibleWidth() - showInfo.width) / 2;
             showInfo.y = showInfo.visibleWindowFrame.top + (showInfo.getVisibleHeight() - showInfo.height) / 2;
-            showInfo.direction = DIRECTION_CENTER_IN_SCREEN;
-        } else if (currentDirection == DIRECTION_TOP) {
+            showInfo.direction = ZDirection.DIRECTION_CENTER_IN_SCREEN;
+        } else if (currentDirection == ZDirection.DIRECTION_TOP) {
             showInfo.y = showInfo.anchorLocation[1] - showInfo.height - mOffsetYIfTop;
             if (showInfo.y < mEdgeProtectionTop + showInfo.visibleWindowFrame.top) {
-                handleDirection(showInfo, nextDirection, DIRECTION_CENTER_IN_SCREEN);
+                handleDirection(showInfo, nextDirection, ZDirection.DIRECTION_CENTER_IN_SCREEN);
             } else {
-                showInfo.direction = DIRECTION_TOP;
+                showInfo.direction = ZDirection.DIRECTION_TOP;
             }
-        } else if (currentDirection == DIRECTION_BOTTOM) {
+        } else if (currentDirection == ZDirection.DIRECTION_BOTTOM) {
             showInfo.y = showInfo.anchorLocation[1] + showInfo.anchor.getHeight() + mOffsetYIfBottom;
             if (showInfo.y > showInfo.visibleWindowFrame.bottom - mEdgeProtectionBottom - showInfo.height) {
-                handleDirection(showInfo, nextDirection, DIRECTION_CENTER_IN_SCREEN);
+                handleDirection(showInfo, nextDirection, ZDirection.DIRECTION_CENTER_IN_SCREEN);
             } else {
-                showInfo.direction = DIRECTION_BOTTOM;
+                showInfo.direction = ZDirection.DIRECTION_BOTTOM;
             }
         }
     }
@@ -455,39 +450,36 @@ public class ZNormalPopup extends ZBasePopup {
         protected void dispatchDraw(Canvas canvas) {
             super.dispatchDraw(canvas);
             if (mShowArrow) {
-                if (mShowInfo.direction == DIRECTION_TOP) {
+                if (mShowInfo.direction == ZDirection.DIRECTION_TOP) {
                     canvas.save();
                     mArrowSaveRect.set(0f, 0f, mShowInfo.width, mShowInfo.height);
                     mArrowPaint.setStyle(Paint.Style.FILL);
                     mArrowPaint.setColor(mBgUsedColor);
                     mArrowPaint.setXfermode(null);
                     int l = mShowInfo.anchorCenter - mShowInfo.x - mArrowWidth / 2;
-                    l = Math.min(Math.max(l, mShowInfo.decorationLeft),
-                            getWidth() - mShowInfo.decorationRight - mArrowWidth);
+                    l = Math.min(Math.max(l, mShowInfo.decorationLeft), getWidth() - mShowInfo.decorationRight - mArrowWidth);
                     int t = mShowInfo.decorationTop + mShowInfo.height - mBorderWidth;
                     canvas.translate(l, t);
                     mArrowPath.reset();
                     mArrowPath.setLastPoint(-mArrowWidth / 2f, 0);
-                    mArrowPath.lineTo(mArrowWidth / 2f, mArrowHeight);
-                    mArrowPath.lineTo(mArrowWidth * 3 / 2f, 0);
+                    mArrowPath.lineTo(0, mArrowHeight);
+                    mArrowPath.lineTo(mArrowWidth / 2f, 0);
                     mArrowPath.close();
                     canvas.drawPath(mArrowPath, mArrowPaint);
                     canvas.restore();
-                } else if (mShowInfo.direction == DIRECTION_BOTTOM) {
+                } else if (mShowInfo.direction == ZDirection.DIRECTION_BOTTOM) {
                     canvas.save();
                     mArrowPaint.setStyle(Paint.Style.FILL);
                     mArrowPaint.setXfermode(null);
                     mArrowPaint.setColor(mBgUsedColor);
                     int l = mShowInfo.anchorCenter - mShowInfo.x - mArrowWidth / 2;
-                    l = Math.min(Math.max(l, mShowInfo.decorationLeft),
-                            getWidth() - mShowInfo.decorationRight - mArrowWidth);
+                    l = Math.min(Math.max(l, mShowInfo.decorationLeft), getWidth() - mShowInfo.decorationRight - mArrowWidth);
                     int t = mShowInfo.decorationTop + mBorderWidth;
                     canvas.translate(l, t);
-                    Log.w(TAG, "zzzzzzzz 11:" + mContentView.getTop() + " 22:" + mShowInfo.decorationTop + " 33:" + mArrowHeight);
                     mArrowPath.reset();
                     mArrowPath.setLastPoint(-mArrowWidth / 2f, 0);
-                    mArrowPath.lineTo(mArrowWidth / 2f, -mArrowHeight);
-                    mArrowPath.lineTo(mArrowWidth * 3 / 2f, 0);
+                    mArrowPath.lineTo(0, -mArrowHeight);
+                    mArrowPath.lineTo(mArrowWidth / 2f, 0);
                     mArrowPath.close();
                     canvas.drawPath(mArrowPath, mArrowPaint);
                     canvas.restore();
@@ -495,5 +487,10 @@ public class ZNormalPopup extends ZBasePopup {
             }
         }
     }
+
+    public int dp2px(Context context, float dpValue) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.getResources().getDisplayMetrics());
+    }
+
 
 }

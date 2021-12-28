@@ -3,14 +3,12 @@ buildscript {
     ext.kotlin_version = '1.4.32'
     repositories {
         maven { url 'https://jitpack.io' }
+        mavenCentral()
+        google()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
         maven {
             url "https://dl.bintray.com/zhuzeting/zzt"
         }
-        mavenCentral()
-        jcenter()
-        google()
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
-
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.1"
@@ -24,12 +22,11 @@ buildscript {
 allprojects {
     repositories {
         maven { url 'https://jitpack.io' }
+        mavenCentral()
+        google()
         maven {
             url "https://dl.bintray.com/zhuzeting/zzt"
         }
-        mavenCentral()
-        jcenter()
-        google()
     }
 }
 
