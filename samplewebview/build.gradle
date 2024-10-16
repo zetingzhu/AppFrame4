@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.zzt.webview"
-        minSdkVersion 26
+        minSdkVersion 25
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
@@ -29,6 +29,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'com.zzt.webview'
 }
 
 dependencies {

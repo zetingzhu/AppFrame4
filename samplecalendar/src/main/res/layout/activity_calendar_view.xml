@@ -7,6 +7,11 @@
     android:orientation="vertical"
     tools:context=".CalendarViewActivity">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/red" />
+
     <com.zzt.calendar.CalendarFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
